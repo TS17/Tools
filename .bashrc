@@ -4,6 +4,24 @@ alias src="source ~/.bashrc"
 alias linux="ssh thanuson@192.168.164.3"
 alias factory="cd /c/Factory"
 
+# History
+export HISTCONTROL=ignoreboth:erasedups
+export HISTSIZE=10000
+export HISTFILESIZE=20000
+export HISTTIMEFORMAT="%F %T "
+
+shopt -s histappend
+
+__update_history() {
+	history -a
+	history -n
+}
+
+case ";$PROMPT_COMMAND;" in
+	*";__update_history;"*) ;;
+	*) PROMPT_COMMAND="__update_history${PROMPT_COMMAND:+; $PROMPT_COMMAND}" ;;
+esac
+
 # Docker
 alias d-c="docker container ls"
 alias d-i="docker images"
